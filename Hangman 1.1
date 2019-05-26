@@ -1,0 +1,50 @@
+import random
+
+words = ["apache", "python", "java", "celsius", "machine", "artificial", "tesla", "computer", "science", "zurich",
+         "germany", "switzerland", "legend", "coffee", "cocoa", "cola", "swift", "florida", "bordeaux", "alps",
+         "russia", "developer", "software", "kotlin", "javascript", "passion", "happiness", "system", "manager",
+         "junior", "student", "university", "test", "code", "program", "degree", "bachelor", "master", "life",
+         "croatia", "yacht", "siege", "rainbow", "europe", "asia", "africa", "america", "australia", "antarctica",
+         "china", "india", "technology", "smile", "zoo", "plane", "gold"]
+
+
+while True:
+    play = input("\nDo you want to play(yes/no) : ").lower().strip()
+    if play == "yes" or play == "y":
+        word = random.choice(words)
+
+        word_list = [x for x in word]
+
+        print("The word is ", "_ " * len(word))
+        final = ""
+
+        tries = 10
+
+        while True:
+            guess = input("\nYour guess : ").lower().strip()
+            if guess.isalpha() and len(guess) == 1 or len(guess) == len(word):  # guess can only be a letter or a word with the same length as the final word
+                if guess in word:  # if letter is in the final word
+                    final = "".join(x if x in guess or x in final else "_ " for x in word_list)  # saves guessed letters and prints an underscore for every missing letter
+                    if final == word:
+                        print("\nGood job, you have guessed the word!", word.upper())
+                        break
+                    else:
+                        tries -= 1
+                        print(final, "\n")
+                        print("\nTries left :", tries)
+                elif len(guess) == len(word) and guess != word:
+                    tries -= 1
+                    print("\nSorry mate, wrong word", "\nTries left :", tries,  "\n")
+                elif guess not in word:
+                    tries -= 1
+                    print("\nWrong guess[", guess, "]", "\nTries left :", tries, "\n")
+                if tries == 0:
+                    print("Out of tries, the word was", word.upper(), "\n")
+                    break
+            else:
+                print("\nYou need to either enter a word of the same length or a letter", "\n")
+    elif play == "no" or play == "n":
+        print("\nGoodbye and cya later")
+        break
+    else:
+        print("\nPlease enter yes or no\n")
